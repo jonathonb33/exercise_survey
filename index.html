@@ -96,17 +96,18 @@
 
       fetch("https://script.google.com/macros/s/AKfycbyFwjH-_2iibGHKvGSvlai8VJnvDEOtPNeLRlbZU8IritjikDrPX32AhBFGpJ32c__/exec", {
         method: "POST",
-        mode: "no-cors", // Allows anonymous access
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
-      }).then(() => {
+      })
+      .then(() => {
         form.reset();
         document.getElementById('gym-questions').style.display = 'none';
         document.getElementById('non-gym-questions').style.display = 'none';
         thankYou.style.display = 'block';
-      }).catch(err => {
+      })
+      .catch(err => {
         alert("There was a problem submitting your response. Please try again.");
         console.error(err);
       });
