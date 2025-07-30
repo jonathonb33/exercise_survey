@@ -6,7 +6,7 @@
 </head>
 <body>
   <h2>Help Us Make Exercise More Enjoyable!</h2>
-  <form id="exercise-form">
+  <form id="exerciseForm"> <!-- FIXED ID -->
     <label>Age: <input type="number" name="age" required></label><br><br>
 
     <label>Are you a gym member?
@@ -69,7 +69,7 @@
     </label><br><br>
 
     <label>Is there anything else you’d like to share to help us understand how to make exercise more enjoyable?<br>
-      <textarea name="anythingElse" rows="3" cols="50"></textarea>
+      <textarea name="anythingElseText" rows="3" cols="50"></textarea>
     </label><br><br>
 
     <button type="submit">Submit</button>
@@ -78,10 +78,9 @@
   <p id="thank-you" style="display:none; color: green;">Thank you! Your response has been recorded.</p>
 
   <script>
-    const form = document.getElementById('exercise-form');
+    const form = document.getElementById('exerciseForm'); // FIXED ID
     const thankYou = document.getElementById('thank-you');
 
-    // Show/hide follow-up questions
     form.gymMember.addEventListener('change', () => {
       const member = form.gymMember.value;
       document.getElementById('gym-questions').style.display = member === 'Yes' ? 'block' : 'none';
@@ -94,7 +93,7 @@
       const data = {};
       formData.forEach((value, key) => data[key] = value);
 
-      fetch("https://script.google.com/macros/s/AKfycbwGHisuZqG0XuwQl07N2qwOn9_C9XH13qHIwODKovq2nOe20YT_91TusP_n-wNF4ics/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbw-Yr0hclrZ0XEJrSg6OaDntxnKzqK4F4JoxyiJlCeBp2kH7vrYTJ4hP5D0VEPVCdrR/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
