@@ -6,7 +6,7 @@
 </head>
 <body>
   <h2>Help Us Make Exercise More Enjoyable!</h2>
-  <form id="exerciseForm"> <!-- FIXED ID -->
+  <form id="exerciseForm">
     <label>Age: <input type="number" name="age" required></label><br><br>
 
     <label>Are you a gym member?
@@ -78,44 +78,43 @@
   <p id="thank-you" style="display:none; color: green;">Thank you! Your response has been recorded.</p>
 
   <script>
-    const form = document.getElementById('exerciseForm'); // FIXED ID
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyp0wujd-uC4deddLGgEl_MprBNgFgCXfAXOgIlpGJrL-Xsz9Y9rBzAJIC2nmvyc2dq/exec';  // <-- CHANGE THIS
+    const form = document.getElementById('exerciseForm');
     const thankYou = document.getElementById('thank-you');
 
     form.gymMember.addEventListener('change', () => {
-      const member = form.gymMember.value;
-      document.getElementById('gym-questions').style.display = member === 'Yes' ? 'block' : 'none';
-      document.getElementById('non-gym-questions').style.display = member === 'No' ? 'block' : 'none';
+      const m = form.gymMember.value;
+      document.getElementById('gym-questions').style.display = m === 'Yes' ? 'block' : 'none';
+      document.getElementById('non-gym-questions').style.display = m === 'No' ? 'block' : 'none';
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      const formData = new FormData(form);
-      const data = {};
-      formData.forEach((value, key) => data[key] = value);
 
-      fetch("https://script.google.com/macros/s/AKfycbw-Yr0hclrZ0XEJrSg6OaDntxnKzqK4F4JoxyiJlCeBp2kH7vrYTJ4hP5D0VEPVCdrR/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+      const params = new URLSearchParams(new FormData(form));
+
+      fetch(scriptURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
       })
-      .then(response => response.json())
-      .then(result => {
-        if (result.result === "success") {
+      .then(res => res.json())
+      .then(data => {
+        if (data.result === 'success') {
           form.reset();
           document.getElementById('gym-questions').style.display = 'none';
           document.getElementById('non-gym-questions').style.display = 'none';
           thankYou.style.display = 'block';
         } else {
-          alert("Submission failed: " + (result.error || "Unknown error"));
+          alert('Submission failed: ' + (data.error || 'Unknown error'));
         }
       })
       .catch(err => {
-        alert("There was a problem submitting your response. Please try again.");
         console.error(err);
+        alert('There was a problem submitting your response. Please try again.');
       });
     });
   </script>
 </body>
 </html>
+
