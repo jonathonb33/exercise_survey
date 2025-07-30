@@ -101,12 +101,17 @@
         },
         body: JSON.stringify(data)
       })
-      .then(() => {
+     .then(response => response.json())
+    .then(result => {
+      if (result.result === "success") {
         form.reset();
         document.getElementById('gym-questions').style.display = 'none';
         document.getElementById('non-gym-questions').style.display = 'none';
         thankYou.style.display = 'block';
-      })
+      } else {
+        alert("Submission failed: " + (result.error || "Unknown error"));
+      }
+    })
       .catch(err => {
         alert("There was a problem submitting your response. Please try again.");
         console.error(err);
