@@ -21,11 +21,44 @@
       max-width: 700px;
       width: 100%;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
     }
 
     h2 {
       margin-top: 0;
       color: #333;
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 2em;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #005ea2;
+      transition: width 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .page-counter {
+      text-align: center;
+      color: #666;
+      margin-bottom: 1.5em;
+      font-size: 0.9em;
     }
 
     label {
@@ -49,19 +82,47 @@
       resize: vertical;
     }
 
-    button[type="submit"] {
-      margin-top: 1.5em;
-      padding: 0.75em 1.5em;
-      background-color: #005ea2;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 1em;
-      cursor: pointer;
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2em;
+      gap: 1em;
     }
 
-    button[type="submit"]:hover {
+    button {
+      padding: 0.75em 1.5em;
+      font-size: 1em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-primary {
+      background-color: #005ea2;
+      color: white;
+    }
+
+    .btn-primary:hover {
       background-color: #004080;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #545b62;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #218838;
     }
 
     .hidden {
@@ -69,9 +130,10 @@
     }
 
     #thank-you {
+      text-align: center;
       margin-top: 1.5em;
       font-weight: bold;
-      color: green;
+      color: #28a745;
     }
 
     @media (max-width: 600px) {
@@ -79,7 +141,11 @@
         padding: 1em;
       }
 
-      button[type="submit"] {
+      .button-container {
+        flex-direction: column;
+      }
+
+      button {
         width: 100%;
       }
     }
@@ -88,18 +154,31 @@
 <body>
   <div class="container">
     <h2>Help Us Make Exercise More Enjoyable!</h2>
+    
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
     <form id="exerciseForm">
-      <label for="age">Age:</label>
-      <input type="number" name="age" id="age" required />
+      <!-- Page 1: Basic Info -->
+      <div class="page active" data-page="1">
+        <div class="page-counter">Page 1 of 6</div>
+        
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required />
 
-      <label for="gymMember">Are you a gym member?</label>
-      <select name="gymMember" id="gymMember" required>
-        <option value="">--Select--</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
+        <label for="gymMember">Are you a gym member?</label>
+        <select name="gymMember" id="gymMember" required>
+          <option value="">--Select--</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
 
-      <div id="gym-questions" class="hidden">
+      <!-- Page 2: Gym Experience (for gym members) -->
+      <div class="page" data-page="2" id="gymMemberPage">
+        <div class="page-counter">Page 2 of 6</div>
+        
         <label for="gymFrequency">How often do you go to the gym?</label>
         <select name="gymFrequency" id="gymFrequency">
           <option value="">--Select--</option>
@@ -112,12 +191,12 @@
 
         <label for="likeGym">What do you like about your gym?</label>
         <textarea name="likeGym" id="likeGym" rows="3"></textarea>
-
-        <label for="wishGym">What do you wish your gym did differently to make workouts more enjoyable?</label>
-        <textarea name="wishGym" id="wishGym" rows="3"></textarea>
       </div>
 
-      <div id="non-gym-questions" class="hidden">
+      <!-- Page 2 Alternative: Non-gym Experience -->
+      <div class="page" data-page="2" id="nonGymPage">
+        <div class="page-counter">Page 2 of 6</div>
+        
         <label for="openToGym">Would you be open to joining a gym?</label>
         <select name="openToGym" id="openToGym">
           <option value="">--Select--</option>
@@ -125,49 +204,156 @@
           <option value="No">No</option>
         </select>
 
-        <label for="reasonsNoGym">What are the biggest reasons you don’t have a gym membership?</label>
+        <label for="reasonsNoGym">What are the biggest reasons you don't have a gym membership?</label>
         <textarea name="reasonsNoGym" id="reasonsNoGym" rows="3"></textarea>
-
-        <label for="wishGymNo">What do you wish gyms did differently that might make you want to join?</label>
-        <textarea name="wishGymNo" id="wishGymNo" rows="3"></textarea>
       </div>
 
-      <label for="exercisePreferences">What are your favorite types of exercise, and what do you like or dislike about them?</label>
-      <textarea name="exercisePreferences" id="exercisePreferences" rows="3"></textarea>
+      <!-- Page 3: Gym Improvements -->
+      <div class="page" data-page="3" id="gymImprovePage">
+        <div class="page-counter">Page 3 of 6</div>
+        
+        <label for="wishGym">What do you wish your gym did differently to make workouts more enjoyable?</label>
+        <textarea name="wishGym" id="wishGym" rows="4"></textarea>
+      </div>
 
-      <label for="favoriteHobbies">What are a couple of your favorite hobbies, and what do you enjoy about them?</label>
-      <textarea name="favoriteHobbies" id="favoriteHobbies" rows="3"></textarea>
+      <!-- Page 3 Alternative: What would make gyms appealing -->
+      <div class="page" data-page="3" id="nonGymImprovePage">
+        <div class="page-counter">Page 3 of 6</div>
+        
+        <label for="wishGymNo">What do you wish gyms did differently that might make you want to join?</label>
+        <textarea name="wishGymNo" id="wishGymNo" rows="4"></textarea>
+      </div>
 
-      <label for="lifeImprovements">What do you wish you could improve in your life right now?</label>
-      <textarea name="lifeImprovements" id="lifeImprovements" rows="3"></textarea>
+      <!-- Page 4: Exercise Preferences -->
+      <div class="page" data-page="4">
+        <div class="page-counter">Page 4 of 6</div>
+        
+        <label for="exercisePreferences">What are your favorite types of exercise, and what do you like or dislike about them?</label>
+        <textarea name="exercisePreferences" id="exercisePreferences" rows="4"></textarea>
+      </div>
 
-      <label for="anythingElseText">Is there anything else you’d like to share to help us understand how to make exercise more enjoyable?</label>
-      <textarea name="anythingElseText" id="anythingElseText" rows="3"></textarea>
+      <!-- Page 5: Personal Interests -->
+      <div class="page" data-page="5">
+        <div class="page-counter">Page 5 of 6</div>
+        
+        <label for="favoriteHobbies">What are a couple of your favorite hobbies, and what do you enjoy about them?</label>
+        <textarea name="favoriteHobbies" id="favoriteHobbies" rows="3"></textarea>
 
-      <button type="submit">Submit</button>
+        <label for="lifeImprovements">What do you wish you could improve in your life right now?</label>
+        <textarea name="lifeImprovements" id="lifeImprovements" rows="3"></textarea>
+      </div>
+
+      <!-- Page 6: Final Thoughts -->
+      <div class="page" data-page="6">
+        <div class="page-counter">Page 6 of 6</div>
+        
+        <label for="anythingElseText">Is there anything else you'd like to share to help us understand how to make exercise more enjoyable?</label>
+        <textarea name="anythingElseText" id="anythingElseText" rows="4"></textarea>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="button-container">
+        <button type="button" id="prevBtn" class="btn-secondary hidden">Previous</button>
+        <button type="button" id="nextBtn" class="btn-primary">Next</button>
+        <button type="submit" id="submitBtn" class="btn-success hidden">Submit Survey</button>
+      </div>
     </form>
-    <p id="thank-you" class="hidden">Thank you! Your response has been recorded.</p>
+
+    <div id="thank-you" class="hidden">
+      <h3>Thank you!</h3>
+      <p>Your response has been recorded successfully.</p>
+    </div>
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyW9QiTPOhR2FJrAqRxXLr72g33pOR_7gFFAM1vPt3fBDEE99EtfrvhVS6ZWVfMNTn4/exec'; // <-- REPLACE with your actual endpoint
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyW9QiTPOhR2FJrAqRxXLr72g33pOR_7gFFAM1vPt3fBDEE99EtfrvhVS6ZWVfMNTn4/exec';
+    
+    let currentPage = 1;
+    let totalPages = 6;
+    let isGymMember = null;
+
     const form = document.getElementById('exerciseForm');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const progressFill = document.getElementById('progressFill');
     const thankYou = document.getElementById('thank-you');
-
     const gymSelect = document.getElementById('gymMember');
-    const gymQs = document.getElementById('gym-questions');
-    const nonGymQs = document.getElementById('non-gym-questions');
 
+    // Handle gym membership selection
     gymSelect.addEventListener('change', () => {
-      const val = gymSelect.value;
-      gymQs.classList.toggle('hidden', val !== 'Yes');
-      nonGymQs.classList.toggle('hidden', val !== 'No');
+      isGymMember = gymSelect.value === 'Yes';
     });
 
+    function showPage(pageNum) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+
+      // Show appropriate page based on gym membership
+      if (pageNum === 2) {
+        if (isGymMember) {
+          document.getElementById('gymMemberPage').classList.add('active');
+        } else {
+          document.getElementById('nonGymPage').classList.add('active');
+        }
+      } else if (pageNum === 3) {
+        if (isGymMember) {
+          document.getElementById('gymImprovePage').classList.add('active');
+        } else {
+          document.getElementById('nonGymImprovePage').classList.add('active');
+        }
+      } else {
+        // Show regular pages
+        document.querySelector(`[data-page="${pageNum}"]:not(#gymMemberPage):not(#nonGymPage):not(#gymImprovePage):not(#nonGymImprovePage)`).classList.add('active');
+      }
+
+      // Update navigation buttons
+      prevBtn.classList.toggle('hidden', pageNum === 1);
+      nextBtn.classList.toggle('hidden', pageNum === totalPages);
+      submitBtn.classList.toggle('hidden', pageNum !== totalPages);
+
+      // Update progress bar
+      const progress = (pageNum / totalPages) * 100;
+      progressFill.style.width = progress + '%';
+    }
+
+    function validateCurrentPage() {
+      const activePage = document.querySelector('.page.active');
+      const requiredFields = activePage.querySelectorAll('[required]');
+      
+      for (let field of requiredFields) {
+        if (!field.value.trim()) {
+          field.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (validateCurrentPage()) {
+        currentPage++;
+        showPage(currentPage);
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentPage--;
+      showPage(currentPage);
+    });
+
+    // Form submission
     form.addEventListener('submit', e => {
       e.preventDefault();
+      
       const formData = new FormData(form);
       const params = new URLSearchParams(formData);
+
+      // Show loading state
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
 
       fetch(scriptURL, {
         method: 'POST',
@@ -177,19 +363,24 @@
         .then(res => res.json())
         .then(data => {
           if (data.result === 'success') {
-            form.reset();
-            gymQs.classList.add('hidden');
-            nonGymQs.classList.add('hidden');
+            form.style.display = 'none';
             thankYou.classList.remove('hidden');
           } else {
             alert('Submission failed: ' + (data.error || 'Unknown error'));
+            submitBtn.textContent = 'Submit Survey';
+            submitBtn.disabled = false;
           }
         })
         .catch(err => {
           console.error(err);
           alert('There was a problem submitting your response. Please try again.');
+          submitBtn.textContent = 'Submit Survey';
+          submitBtn.disabled = false;
         });
     });
+
+    // Initialize
+    showPage(1);
   </script>
 </body>
 </html>
