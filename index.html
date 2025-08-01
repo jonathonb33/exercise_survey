@@ -6,35 +6,26 @@
   <title>Exercise Survey</title>
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: #f0f2f5;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: #f4f6f8;
       margin: 0;
-      padding: 1em;
+      padding: 2em;
       display: flex;
       justify-content: center;
     }
 
     .container {
       background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       padding: 2em;
-      max-width: 600px;
+      border-radius: 8px;
+      max-width: 700px;
       width: 100%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
       margin-top: 0;
-      font-size: 1.5em;
       color: #333;
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
     }
 
     label {
@@ -58,63 +49,37 @@
       resize: vertical;
     }
 
-    .buttons {
+    button[type="submit"] {
       margin-top: 1.5em;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    button {
-      padding: 0.75em 1.25em;
-      font-size: 1em;
+      padding: 0.75em 1.5em;
+      background-color: #005ea2;
+      color: white;
       border: none;
       border-radius: 4px;
+      font-size: 1em;
       cursor: pointer;
     }
 
-    .next-btn {
-      background-color: #005ea2;
-      color: white;
+    button[type="submit"]:hover {
+      background-color: #004080;
     }
 
-    .prev-btn {
-      background-color: #ccc;
-    }
-
-    .submit-btn {
-      background-color: #28a745;
-      color: white;
+    .hidden {
+      display: none;
     }
 
     #thank-you {
-      display: none;
-      color: green;
-      font-weight: bold;
       margin-top: 1.5em;
+      font-weight: bold;
+      color: green;
     }
 
-    .progress {
-      height: 8px;
-      background: #ddd;
-      border-radius: 4px;
-      margin-bottom: 1em;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: #007bff;
-      width: 0%;
-      transition: width 0.3s;
-    }
-
-    @media (max-width: 480px) {
-      .buttons {
-        flex-direction: column;
-        gap: 1em;
+    @media (max-width: 600px) {
+      .container {
+        padding: 1em;
       }
 
-      button {
+      button[type="submit"] {
         width: 100%;
       }
     }
@@ -123,135 +88,83 @@
 <body>
   <div class="container">
     <h2>Help Us Make Exercise More Enjoyable!</h2>
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-
     <form id="exerciseForm">
-      <!-- Page 1 -->
-      <div class="page active">
-        <label for="age">Age:</label>
-        <input type="number" name="age" id="age" required />
+      <label for="age">Age:</label>
+      <input type="number" name="age" id="age" required />
 
-        <label for="gymMember">Are you a gym member?</label>
-        <select name="gymMember" id="gymMember" required>
+      <label for="gymMember">Are you a gym member?</label>
+      <select name="gymMember" id="gymMember" required>
+        <option value="">--Select--</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <div id="gym-questions" class="hidden">
+        <label for="gymFrequency">How often do you go to the gym?</label>
+        <select name="gymFrequency" id="gymFrequency">
+          <option value="">--Select--</option>
+          <option value="Daily">Daily</option>
+          <option value="Several times a week">Several times a week</option>
+          <option value="Once a week">Once a week</option>
+          <option value="Every other week">Every other week</option>
+          <option value="Once a month or less">Once a month or less</option>
+        </select>
+
+        <label for="likeGym">What do you like about your gym?</label>
+        <textarea name="likeGym" id="likeGym" rows="3"></textarea>
+
+        <label for="wishGym">What do you wish your gym did differently to make workouts more enjoyable?</label>
+        <textarea name="wishGym" id="wishGym" rows="3"></textarea>
+      </div>
+
+      <div id="non-gym-questions" class="hidden">
+        <label for="openToGym">Would you be open to joining a gym?</label>
+        <select name="openToGym" id="openToGym">
           <option value="">--Select--</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
 
-        <label for="exercisePreferences">What are your favorite types of exercise, and what do you like or dislike about them?</label>
-        <textarea name="exercisePreferences" id="exercisePreferences" rows="3"></textarea>
+        <label for="reasonsNoGym">What are the biggest reasons you don’t have a gym membership?</label>
+        <textarea name="reasonsNoGym" id="reasonsNoGym" rows="3"></textarea>
+
+        <label for="wishGymNo">What do you wish gyms did differently that might make you want to join?</label>
+        <textarea name="wishGymNo" id="wishGymNo" rows="3"></textarea>
       </div>
 
-      <!-- Page 2 -->
-      <div class="page">
-        <div id="gym-questions" class="gym-conditional">
-          <label for="gymFrequency">How often do you go to the gym?</label>
-          <select name="gymFrequency" id="gymFrequency">
-            <option value="">--Select--</option>
-            <option value="Daily">Daily</option>
-            <option value="Several times a week">Several times a week</option>
-            <option value="Once a week">Once a week</option>
-            <option value="Every other week">Every other week</option>
-            <option value="Once a month or less">Once a month or less</option>
-          </select>
+      <label for="exercisePreferences">What are your favorite types of exercise, and what do you like or dislike about them?</label>
+      <textarea name="exercisePreferences" id="exercisePreferences" rows="3"></textarea>
 
-          <label for="likeGym">What do you like about your gym?</label>
-          <textarea name="likeGym" id="likeGym" rows="3"></textarea>
+      <label for="favoriteHobbies">What are a couple of your favorite hobbies, and what do you enjoy about them?</label>
+      <textarea name="favoriteHobbies" id="favoriteHobbies" rows="3"></textarea>
 
-          <label for="wishGym">What do you wish your gym did differently?</label>
-          <textarea name="wishGym" id="wishGym" rows="3"></textarea>
-        </div>
+      <label for="lifeImprovements">What do you wish you could improve in your life right now?</label>
+      <textarea name="lifeImprovements" id="lifeImprovements" rows="3"></textarea>
 
-        <div id="non-gym-questions" class="gym-conditional">
-          <label for="openToGym">Would you be open to joining a gym?</label>
-          <select name="openToGym" id="openToGym">
-            <option value="">--Select--</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
+      <label for="anythingElseText">Is there anything else you’d like to share to help us understand how to make exercise more enjoyable?</label>
+      <textarea name="anythingElseText" id="anythingElseText" rows="3"></textarea>
 
-          <label for="reasonsNoGym">What are the biggest reasons you don’t have a gym membership?</label>
-          <textarea name="reasonsNoGym" id="reasonsNoGym" rows="3"></textarea>
-
-          <label for="wishGymNo">What might make you want to join a gym?</label>
-          <textarea name="wishGymNo" id="wishGymNo" rows="3"></textarea>
-        </div>
-      </div>
-
-      <!-- Page 3 -->
-      <div class="page">
-        <label for="favoriteHobbies">What are your favorite hobbies, and what do you enjoy about them?</label>
-        <textarea name="favoriteHobbies" id="favoriteHobbies" rows="3"></textarea>
-
-        <label for="lifeImprovements">What do you wish you could improve in your life right now?</label>
-        <textarea name="lifeImprovements" id="lifeImprovements" rows="3"></textarea>
-
-        <label for="anythingElseText">Anything else you'd like to share?</label>
-        <textarea name="anythingElseText" id="anythingElseText" rows="3"></textarea>
-      </div>
-
-      <div class="buttons">
-        <button type="button" class="prev-btn" id="prevBtn" style="display:none;">Previous</button>
-        <button type="button" class="next-btn" id="nextBtn">Next</button>
-        <button type="submit" class="submit-btn" id="submitBtn" style="display:none;">Submit</button>
-      </div>
+      <button type="submit">Submit</button>
     </form>
-
-    <p id="thank-you">Thank you! Your response has been recorded.</p>
+    <p id="thank-you" class="hidden">Thank you! Your response has been recorded.</p>
   </div>
 
   <script>
-    const form = document.getElementById("exerciseForm");
-    const pages = document.querySelectorAll(".page");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const submitBtn = document.getElementById("submitBtn");
-    const thankYou = document.getElementById("thank-you");
-    const progressBar = document.getElementById("progressBar");
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyW9QiTPOhR2FJrAqRxXLr72g33pOR_7gFFAM1vPt3fBDEE99EtfrvhVS6ZWVfMNTn4/exec'; // <-- REPLACE with your actual endpoint
+    const form = document.getElementById('exerciseForm');
+    const thankYou = document.getElementById('thank-you');
 
-    let currentPage = 0;
+    const gymSelect = document.getElementById('gymMember');
+    const gymQs = document.getElementById('gym-questions');
+    const nonGymQs = document.getElementById('non-gym-questions');
 
-    function updateProgress() {
-      const percent = ((currentPage + 1) / pages.length) * 100;
-      progressBar.style.width = percent + "%";
-    }
-
-    function showPage(index) {
-      pages.forEach((page, i) => {
-        page.classList.toggle("active", i === index);
-      });
-
-      prevBtn.style.display = index > 0 ? "inline-block" : "none";
-      nextBtn.style.display = index < pages.length - 1 ? "inline-block" : "none";
-      submitBtn.style.display = index === pages.length - 1 ? "inline-block" : "none";
-
-      updateProgress();
-    }
-
-    nextBtn.addEventListener("click", () => {
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-        showPage(currentPage);
-      }
+    gymSelect.addEventListener('change', () => {
+      const val = gymSelect.value;
+      gymQs.classList.toggle('hidden', val !== 'Yes');
+      nonGymQs.classList.toggle('hidden', val !== 'No');
     });
 
-    prevBtn.addEventListener("click", () => {
-      if (currentPage > 0) {
-        currentPage--;
-        showPage(currentPage);
-      }
-    });
-
-    // Show conditional gym questions
-    form.gymMember.addEventListener("change", () => {
-      const isGym = form.gymMember.value === "Yes";
-      document.getElementById("gym-questions").style.display = isGym ? "block" : "none";
-      document.getElementById("non-gym-questions").style.display = !isGym ? "block" : "none";
-    });
-
-    // Submit logic
-    const scriptURL = 'https://script.google.com/macros/s/YOUR_DEPLOYED_URL/exec'; // REPLACE THIS
-    form.addEventListener("submit", e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
       const formData = new FormData(form);
       const params = new URLSearchParams(formData);
@@ -264,22 +177,24 @@
         .then(res => res.json())
         .then(data => {
           if (data.result === 'success') {
-            form.style.display = "none";
-            thankYou.style.display = "block";
+            form.reset();
+            gymQs.classList.add('hidden');
+            nonGymQs.classList.add('hidden');
+            thankYou.classList.remove('hidden');
           } else {
-            alert("Submission failed: " + (data.error || "Unknown error"));
+            alert('Submission failed: ' + (data.error || 'Unknown error'));
           }
         })
         .catch(err => {
           console.error(err);
-          alert("There was a problem submitting your response. Please try again.");
+          alert('There was a problem submitting your response. Please try again.');
         });
     });
-
-    showPage(currentPage);
   </script>
 </body>
 </html>
+
+
 
 
 
