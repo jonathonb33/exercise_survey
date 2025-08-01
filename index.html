@@ -6,115 +6,250 @@
   <title>Exercise Survey</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      background-color: #f5f5f5;
+      font-family: "Segoe UI", sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 1em;
+      display: flex;
+      justify-content: center;
     }
+
+    .container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 2em;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.5em;
+      color: #333;
+    }
+
     .page {
       display: none;
     }
+
     .page.active {
       display: block;
     }
+
     label {
       display: block;
-      margin-top: 15px;
-      font-weight: bold;
+      margin: 1em 0 0.5em;
+      font-weight: 600;
     }
-    input[type="text"], select {
+
+    input[type="number"],
+    select,
+    textarea {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
+      padding: 0.5em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .buttons {
+      margin-top: 1.5em;
+      display: flex;
+      justify-content: space-between;
+      gap: 1em;
+    }
+
     button {
-      margin-top: 20px;
-      padding: 10px 15px;
-      font-size: 16px;
+      padding: 0.75em 1.25em;
+      font-size: 1em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
     }
-    #thankYou {
+
+    .next-btn {
+      background-color: #005ea2;
+      color: white;
+    }
+
+    .prev-btn {
+      background-color: #ccc;
+    }
+
+    .submit-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #thank-you {
       display: none;
-      font-size: 18px;
-      font-weight: bold;
       color: green;
-      text-align: center;
+      font-weight: bold;
+      margin-top: 1.5em;
+    }
+
+    .progress {
+      height: 8px;
+      background: #ddd;
+      border-radius: 4px;
+      margin-bottom: 1em;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #007bff;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    @media (max-width: 480px) {
+      .buttons {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>Help Us Make Exercise More Enjoyable!</h2>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 
-  <form id="exerciseForm">
-    <!-- Page 1 -->
-    <div class="page active" id="page-1">
-      <label for="name">Name:</label>
-      <input type="text" name="name" required />
+    <form id="exerciseForm">
+      <!-- Page 1 -->
+      <div class="page active">
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required />
 
-      <label for="age">Age:</label>
-      <input type="text" name="age" required />
+        <label for="gymMember">Are you a gym member?</label>
+        <select name="gymMember" id="gymMember" required>
+          <option value="">--Select--</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
 
-      <button type="button" onclick="nextPage()">Next</button>
-    </div>
+        <label for="exercisePreferences">What are your favorite types of exercise, and what do you like or dislike about them?</label>
+        <textarea name="exercisePreferences" id="exercisePreferences" rows="3"></textarea>
+      </div>
 
-    <!-- Page 2 -->
-    <div class="page" id="page-2">
-      <label for="exercise_freq">How often do you exercise per week?</label>
-      <input type="text" name="exercise_freq" required />
+      <!-- Page 2 -->
+      <div class="page">
+        <div id="gym-questions" class="gym-conditional" style="display: none;">
+          <label for="gymFrequency">How often do you go to the gym?</label>
+          <select name="gymFrequency" id="gymFrequency">
+            <option value="">--Select--</option>
+            <option value="Daily">Daily</option>
+            <option value="Several times a week">Several times a week</option>
+            <option value="Once a week">Once a week</option>
+            <option value="Every other week">Every other week</option>
+            <option value="Once a month or less">Once a month or less</option>
+          </select>
 
-      <label for="exercise_type">What types of exercise do you do?</label>
-      <input type="text" name="exercise_type" required />
+          <label for="likeGym">What do you like about your gym?</label>
+          <textarea name="likeGym" id="likeGym" rows="3"></textarea>
 
-      <label for="exercise_motivation">What motivates you to exercise?</label>
-      <input type="text" name="exercise_motivation" required />
+          <label for="wishGym">What do you wish your gym did differently?</label>
+          <textarea name="wishGym" id="wishGym" rows="3"></textarea>
+        </div>
 
-      <button type="button" onclick="prevPage()">Back</button>
-      <button type="button" onclick="nextPage()">Next</button>
-    </div>
+        <div id="non-gym-questions" class="gym-conditional" style="display: none;">
+          <label for="openToGym">Would you be open to joining a gym?</label>
+          <select name="openToGym" id="openToGym">
+            <option value="">--Select--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
 
-    <!-- Page 3 -->
-    <div class="page" id="page-3">
-      <label for="exercise_barriers">What makes it hard for you to exercise?</label>
-      <input type="text" name="exercise_barriers" required />
+          <label for="reasonsNoGym">What are the biggest reasons you don’t have a gym membership?</label>
+          <textarea name="reasonsNoGym" id="reasonsNoGym" rows="3"></textarea>
 
-      <label for="support_needed">What support would help you exercise more?</label>
-      <input type="text" name="support_needed" required />
+          <label for="wishGymNo">What might make you want to join a gym?</label>
+          <textarea name="wishGymNo" id="wishGymNo" rows="3"></textarea>
+        </div>
+      </div>
 
-      <label for="goals">What are your exercise goals?</label>
-      <input type="text" name="goals" required />
+      <!-- Page 3 -->
+      <div class="page">
+        <label for="favoriteHobbies">What are your favorite hobbies, and what do you enjoy about them?</label>
+        <textarea name="favoriteHobbies" id="favoriteHobbies" rows="3"></textarea>
 
-      <button type="button" onclick="prevPage()">Back</button>
-      <button type="submit">Submit</button>
-    </div>
-  </form>
+        <label for="lifeImprovements">What do you wish you could improve in your life right now?</label>
+        <textarea name="lifeImprovements" id="lifeImprovements" rows="3"></textarea>
 
-  <div id="thankYou">Thank you for completing the survey!</div>
+        <label for="anythingElseText">Anything else you'd like to share?</label>
+        <textarea name="anythingElseText" id="anythingElseText" rows="3"></textarea>
+      </div>
+
+      <div class="buttons">
+        <button type="button" class="prev-btn" id="prevBtn" style="display:none;">Previous</button>
+        <button type="button" class="next-btn" id="nextBtn">Next</button>
+        <button type="submit" class="submit-btn" id="submitBtn" style="display:none;">Submit</button>
+      </div>
+    </form>
+
+    <p id="thank-you">Thank you! Your response has been recorded.</p>
+  </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyW9QiTPOhR2FJrAqRxXLr72g33pOR_7gFFAM1vPt3fBDEE99EtfrvhVS6ZWVfMNTn4/exec';
     const form = document.getElementById("exerciseForm");
-    const thankYou = document.getElementById("thankYou");
     const pages = document.querySelectorAll(".page");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const thankYou = document.getElementById("thank-you");
+    const progressBar = document.getElementById("progressBar");
+
     let currentPage = 0;
+
+    function updateProgress() {
+      const percent = ((currentPage + 1) / pages.length) * 100;
+      progressBar.style.width = percent + "%";
+    }
 
     function showPage(index) {
       pages.forEach((page, i) => {
         page.classList.toggle("active", i === index);
       });
+
+      prevBtn.style.display = index > 0 ? "inline-block" : "none";
+      nextBtn.style.display = index < pages.length - 1 ? "inline-block" : "none";
+      submitBtn.style.display = index === pages.length - 1 ? "inline-block" : "none";
+
+      updateProgress();
     }
 
-    function nextPage() {
+    nextBtn.addEventListener("click", () => {
       if (currentPage < pages.length - 1) {
         currentPage++;
         showPage(currentPage);
       }
-    }
+    });
 
-    function prevPage() {
+    prevBtn.addEventListener("click", () => {
       if (currentPage > 0) {
         currentPage--;
         showPage(currentPage);
       }
-    }
+    });
+
+    form.gymMember.addEventListener("change", () => {
+      const isGym = form.gymMember.value === "Yes";
+      document.getElementById("gym-questions").style.display = isGym ? "block" : "none";
+      document.getElementById("non-gym-questions").style.display = !isGym ? "block" : "none";
+    });
+
+    // Replace this with your actual deployed Google Apps Script URL:
+    const scriptURL = 'https://script.google.com/macros/s/YOUR_DEPLOYED_URL_HERE/exec';
 
     form.addEventListener("submit", e => {
       e.preventDefault();
@@ -136,13 +271,16 @@
           }
         })
         .catch(err => {
-          console.error("Submission error:", err);
+          console.error(err);
           alert("There was a problem submitting your response. Please try again.");
         });
     });
+
+    showPage(currentPage);
   </script>
 </body>
 </html>
+
 
 
 
