@@ -212,7 +212,6 @@
 
         <label for="wishGym">What do you wish your gym did differently that would make you want to go more?</label>
         <textarea name="wishGym" id="wishGym" rows="4"></textarea>
-        </div>
       </div>
 
       <!-- Page 2 Alternative: Non-gym Experience -->
@@ -274,20 +273,7 @@
 
         <label for="wishGymNo">What do you wish gyms did differently that might make you want to join?</label>
         <textarea name="wishGymNo" id="wishGymNo" rows="4"></textarea>
-        </div>
       </div>
-
-      <!-- Page 3: Gym Improvements -->
-      <div class="page" data-page="3" id="gymImprovePage">
-        <div class="page-counter">Page 3 of 6</div>
-        
-      
-
-      <!-- Page 3 Alternative: What would make gyms appealing -->
-      <div class="page" data-page="3" id="nonGymImprovePage">
-        <div class="page-counter">Page 3 of 6</div>
-        
-        
 
       <!-- Page 3: Exercise Preferences -->
       <div class="page" data-page="3">
@@ -305,9 +291,9 @@
         <textarea name="exercisePreferences" id="exercisePreferences" rows="4"></textarea>
       </div>
 
-      <!-- Page 5: Personal Interests -->
-      <div class="page" data-page="5">
-        <div class="page-counter">Page 5 of 6</div>
+      <!-- Page 4: Personal Interests -->
+      <div class="page" data-page="4">
+        <div class="page-counter">Page 4 of 5</div>
         
         <label for="favoriteHobbies">What are a couple of your favorite hobbies? What are 1-3 reasons you like each one?</label>
         <textarea name="favoriteHobbies" id="favoriteHobbies" rows="3"></textarea>
@@ -316,9 +302,9 @@
         <textarea name="lifeImprovements" id="lifeImprovements" rows="3"></textarea>
       </div>
 
-      <!-- Page 6: Final Thoughts -->
-      <div class="page" data-page="6">
-        <div class="page-counter">Page 6 of 6</div>
+      <!-- Page 5: Final Thoughts -->
+      <div class="page" data-page="5">
+        <div class="page-counter">Page 5 of 5</div>
         
         <label for="anythingElseText">Is there anything else you'd like to share to help us understand how to make exercise more enjoyable?</label>
         <textarea name="anythingElseText" id="anythingElseText" rows="4"></textarea>
@@ -342,7 +328,7 @@
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyW9QiTPOhR2FJrAqRxXLr72g33pOR_7gFFAM1vPt3fBDEE99EtfrvhVS6ZWVfMNTn4/exec';
     
     let currentPage = 1;
-    let totalPages = 6;
+    let totalPages = 5;
     let isGymMember = null;
 
     const form = document.getElementById('exerciseForm');
@@ -371,15 +357,9 @@
         } else {
           document.getElementById('nonGymPage').classList.add('active');
         }
-      } else if (pageNum === 3) {
-        if (isGymMember) {
-          document.getElementById('gymImprovePage').classList.add('active');
-        } else {
-          document.getElementById('nonGymImprovePage').classList.add('active');
-        }
       } else {
         // Show regular pages
-        document.querySelector(`[data-page="${pageNum}"]:not(#gymMemberPage):not(#nonGymPage):not(#gymImprovePage):not(#nonGymImprovePage)`).classList.add('active');
+        document.querySelector(`[data-page="${pageNum}"]:not(#gymMemberPage):not(#nonGymPage)`).classList.add('active');
       }
 
       // Update navigation buttons
@@ -457,4 +437,3 @@
   </script>
 </body>
 </html>
-
