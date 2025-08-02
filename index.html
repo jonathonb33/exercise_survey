@@ -13,7 +13,6 @@
       display: flex;
       justify-content: center;
     }
-
     .container {
       background: white;
       padding: 2em;
@@ -23,13 +22,11 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       position: relative;
     }
-
     h2 {
       margin-top: 0;
       color: #333;
       text-align: center;
     }
-
     .progress-bar {
       width: 100%;
       height: 8px;
@@ -38,35 +35,29 @@
       margin-bottom: 2em;
       overflow: hidden;
     }
-
     .progress-fill {
       height: 100%;
       background: #005ea2;
       transition: width 0.3s ease;
       border-radius: 4px;
     }
-
     .page {
       display: none;
     }
-
     .page.active {
       display: block;
     }
-
     .page-counter {
       text-align: center;
       color: #666;
       margin-bottom: 1.5em;
       font-size: 0.9em;
     }
-
     label {
       display: block;
       margin: 1em 0 0.5em;
       font-weight: 600;
     }
-
     input[type="number"],
     select,
     textarea {
@@ -77,18 +68,15 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
-
     textarea {
       resize: vertical;
     }
-
     .button-container {
       display: flex;
       justify-content: space-between;
       margin-top: 2em;
       gap: 1em;
     }
-
     button {
       padding: 0.75em 1.5em;
       font-size: 1em;
@@ -97,54 +85,43 @@
       cursor: pointer;
       transition: background-color 0.2s;
     }
-
     .btn-primary {
       background-color: #005ea2;
       color: white;
     }
-
     .btn-primary:hover {
       background-color: #004080;
     }
-
     .btn-secondary {
       background-color: #6c757d;
       color: white;
     }
-
     .btn-secondary:hover {
       background-color: #545b62;
     }
-
     .btn-success {
       background-color: #28a745;
       color: white;
     }
-
     .btn-success:hover {
       background-color: #218838;
     }
-
     .hidden {
       display: none;
     }
-
     #thank-you {
       text-align: center;
       margin-top: 1.5em;
       font-weight: bold;
       color: #28a745;
     }
-
     @media (max-width: 600px) {
       .container {
         padding: 1em;
       }
-
       .button-container {
         flex-direction: column;
       }
-
       button {
         width: 100%;
       }
@@ -160,7 +137,7 @@
     </div>
 
     <form id="exerciseForm">
-      <!-- Page 1: Basic Info -->
+      <!-- Page 1 -->
       <div class="page active" data-page="1">
         <div class="page-counter">Page 1 of 5</div>
         
@@ -193,7 +170,7 @@
         </select>
       </div>
 
-      <!-- Page 2: Gym Experience (for gym members) -->
+      <!-- Page 2 gym members -->
       <div class="page" data-page="2" id="gymMemberPage">
         <div class="page-counter">Page 2 of 5</div>
         
@@ -214,7 +191,7 @@
         <textarea name="wishGym" id="wishGym" rows="4"></textarea>
       </div>
 
-      <!-- Page 2 Alternative: Non-gym Experience -->
+      <!-- Page 2 non-gym members -->
       <div class="page" data-page="2" id="nonGymPage">
         <div class="page-counter">Page 2 of 5</div>
         
@@ -231,42 +208,34 @@
           <input type="checkbox" name="reasonsNoGym" id="responsibilities" value="I don't have free time">
           <label for="responsibilities" style="display: inline; margin-left: 0.5em; font-weight: normal;">I don't have free time</label>
         </div>
-        
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="prefer" value="In my free time I prefer to do other activities">
-          <label for="prefer" style="display: inline; margin-left: 0.5em; font-weight: normal;">In my free time I prefer to do other activities</label>
+          <label for="prefer" style="display: inline; margin-left: 0.5em; font-weight: normal;">I prefer to do other activities</label>
         </div>
-        
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="tired" value="I am too tired">
           <label for="tired" style="display: inline; margin-left: 0.5em; font-weight: normal;">I am too tired</label>
         </div>
-        
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="notFun" value="Exercising at a gym isn't fun">
           <label for="notFun" style="display: inline; margin-left: 0.5em; font-weight: normal;">Exercising at a gym isn't fun</label>
         </div>
-        
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="intimidated" value="I feel intimidated or worry about being judged">
-          <label for="intimidated" style="display: inline; margin-left: 0.5em; font-weight: normal;">I feel intimidated or worry about being judged at the gym</label>
+          <label for="intimidated" style="display: inline; margin-left: 0.5em; font-weight: normal;">I feel intimidated or worry about being judged</label>
         </div>
-        
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="dontKnow" value="I don't know what to do">
           <label for="dontKnow" style="display: inline; margin-left: 0.5em; font-weight: normal;">I don't know what to do</label>
         </div>
-        
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="costs" value="Costs of memberships">
           <label for="costs" style="display: inline; margin-left: 0.5em; font-weight: normal;">Costs of memberships</label>
         </div>
-        
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="otherReason" value="Another reason">
           <label for="otherReason" style="display: inline; margin-left: 0.5em; font-weight: normal;">Another reason</label>
         </div>
-        
         <div style="margin-top: 0.5em;">
           <textarea name="reasonsNoGymOther" id="reasonsNoGymOther" rows="2" placeholder="Please specify the other reason(s)..."></textarea>
         </div>
@@ -275,10 +244,9 @@
         <textarea name="wishGymNo" id="wishGymNo" rows="4"></textarea>
       </div>
 
-      <!-- Page 3: Exercise Preferences -->
+      <!-- Page 3 -->
       <div class="page" data-page="3">
         <div class="page-counter">Page 3 of 5</div>
-
         <label for="exerciseSocial">Do you prefer to exercise:</label>
         <select name="exerciseSocial" id="exerciseSocial" required>
           <option value="">--Select--</option>
@@ -286,40 +254,33 @@
           <option value="With a couple people">With a couple people</option>
           <option value="On your own">On your own</option>
         </select>
-        
         <p style="font-weight: 600; margin: 1em 0 0.5em;">What are your two favorite types of exercise, and what do you like or dislike about them?</p>
-        
         <label for="exercise1">Exercise #1 and reasons you like it?:</label>
-        <textarea name="exercise1" id="exercise1" rows="3" placeholder="e.g., Biking - I love the exploratorying different areas and being otuside"></textarea>
-
+        <textarea name="exercise1" id="exercise1" rows="3" placeholder="e.g., Biking - I love exploring different areas and being outside"></textarea>
         <label for="exercise2">Exercise #2 and reasons you like it?:</label>
         <textarea name="exercise2" id="exercise2" rows="3" placeholder="e.g., Dance class - I like exercising with people and learning new dance routines"></textarea>
       </div>
 
-      <!-- Page 4: Personal Interests -->
+      <!-- Page 4 -->
       <div class="page" data-page="4">
         <div class="page-counter">Page 4 of 5</div>
-        
         <p style="font-weight: 600; margin: 1em 0 0.5em;">What are a couple of your favorite activities or hobbies? What are a few reasons you like them?</p>
-        
         <label for="hobby1">Activity #1 and reasons you like it:</label>
-        <textarea name="hobby1" id="hobby1" rows="3" placeholder="e.g., Reading - it helps me relax, learn new things, and escape into different worlds"></textarea>
-
+        <textarea name="hobby1" id="hobby1" rows="3"></textarea>
         <label for="hobby2">Activity #2 and reasons you like it:</label>
-        <textarea name="hobby2" id="hobby2" rows="3" placeholder="e.g., Cooking - it's creative, I enjoy trying new recipes, and it brings people together"></textarea>
+        <textarea name="hobby2" id="hobby2" rows="3"></textarea>
+        <label for="lifeImprovements">What are a couple aspects of your life you would like to improve?</label>
+        <textarea name="lifeImprovements" id="lifeImprovements" rows="3"></textarea>
+      </div> <!-- ✅ close Page 4 -->
 
-        <label for="lifeImprovements">What are a couple aspects of your life you would you could improve?</label>
-        <textarea name="lifeImprovements" id="lifeImprovements" rows="3" placeholder="e.g., mental health, confidence, build more relationships"></textarea>
-
-      <!-- Page 5: Final Thoughts -->
+      <!-- Page 5 -->
       <div class="page" data-page="5">
         <div class="page-counter">Page 5 of 5</div>
-        
         <label for="anythingElseText">Is there anything else you'd like to share to help us understand how to make exercise more enjoyable and rewarding?</label>
         <textarea name="anythingElseText" id="anythingElseText" rows="4"></textarea>
       </div>
 
-      <!-- Navigation buttons -->
+      <!-- Buttons -->
       <div class="button-container">
         <button type="button" id="prevBtn" class="btn-secondary hidden">Previous</button>
         <button type="button" id="nextBtn" class="btn-primary">Next</button>
@@ -333,118 +294,100 @@
     </div>
   </div>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyW9QiTPOhR2FJrAqRxXLr72g33pOR_7gFFAM1vPt3fBDEE99EtfrvhVS6ZWVfMNTn4/exec';
-    
-    let currentPage = 1;
-    let totalPages = 5;
-    let isGymMember = null;
+<script>
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyW9QiTPOhR2FJrAqRxXLr72g33pOR_7gFFAM1vPt3fBDEE99EtfrvhVS6ZWVfMNTn4/exec';
 
-    const form = document.getElementById('exerciseForm');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    const progressFill = document.getElementById('progressFill');
-    const thankYou = document.getElementById('thank-you');
-    const gymSelect = document.getElementById('gymMember');
+let currentPage = 1;
+let totalPages = 5;
+let isGymMember = null;
 
-    // Handle gym membership selection
-    gymSelect.addEventListener('change', () => {
-      isGymMember = gymSelect.value === 'Yes';
-    });
+const form = document.getElementById('exerciseForm');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const submitBtn = document.getElementById('submitBtn');
+const progressFill = document.getElementById('progressFill');
+const thankYou = document.getElementById('thank-you');
+const gymSelect = document.getElementById('gymMember');
 
-    function showPage(pageNum) {
-      // Hide all pages
-      document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-      });
+gymSelect.addEventListener('change', () => {
+  isGymMember = gymSelect.value === 'Yes';
+});
 
-      // Show appropriate page based on gym membership
-      if (pageNum === 2) {
-        if (isGymMember) {
-          document.getElementById('gymMemberPage').classList.add('active');
-        } else {
-          document.getElementById('nonGymPage').classList.add('active');
-        }
-      } else {
-        // Show regular pages
-        document.querySelector(`[data-page="${pageNum}"]:not(#gymMemberPage):not(#nonGymPage)`).classList.add('active');
-      }
+function showPage(pageNum) {
+  document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
 
-      // Update navigation buttons
-      prevBtn.classList.toggle('hidden', pageNum === 1);
-      nextBtn.classList.toggle('hidden', pageNum === totalPages);
-      submitBtn.classList.toggle('hidden', pageNum !== totalPages);
-
-      // Update progress bar
-      const progress = (pageNum / totalPages) * 100;
-      progressFill.style.width = progress + '%';
+  if (pageNum === 2) {
+    if (isGymMember) {
+      document.getElementById('gymMemberPage').classList.add('active');
+    } else {
+      document.getElementById('nonGymPage').classList.add('active');
     }
+  } else {
+    document.querySelectorAll(`.page[data-page="${pageNum}"]`).forEach(el => el.classList.add('active'));
+  }
 
-    function validateCurrentPage() {
-      const activePage = document.querySelector('.page.active');
-      const requiredFields = activePage.querySelectorAll('[required]');
-      
-      for (let field of requiredFields) {
-        if (!field.value.trim()) {
-          field.focus();
-          return false;
-        }
-      }
-      return true;
+  prevBtn.classList.toggle('hidden', pageNum === 1);
+  nextBtn.classList.toggle('hidden', pageNum === totalPages);
+  submitBtn.classList.toggle('hidden', pageNum !== totalPages);
+
+  progressFill.style.width = (pageNum / totalPages * 100) + '%';
+}
+
+function validateCurrentPage() {
+  const activePage = document.querySelector('.page.active');
+  const requiredFields = activePage.querySelectorAll('[required]');
+  for (let field of requiredFields) {
+    if (!field.value.trim()) {
+      field.focus();
+      return false;
     }
+  }
+  return true;
+}
 
-    nextBtn.addEventListener('click', () => {
-      if (validateCurrentPage()) {
-        currentPage++;
-        showPage(currentPage);
-      }
-    });
-
-    prevBtn.addEventListener('click', () => {
-      currentPage--;
-      showPage(currentPage);
-    });
-
-    // Form submission
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const params = new URLSearchParams(formData);
-
-      // Show loading state
-      submitBtn.textContent = 'Submitting...';
-      submitBtn.disabled = true;
-
-      fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString()
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.result === 'success') {
-            form.style.display = 'none';
-            thankYou.classList.remove('hidden');
-          } else {
-            alert('Submission failed: ' + (data.error || 'Unknown error'));
-            submitBtn.textContent = 'Submit Survey';
-            submitBtn.disabled = false;
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          alert('There was a problem submitting your response. Please try again.');
-          submitBtn.textContent = 'Submit Survey';
-          submitBtn.disabled = false;
-        });
-    });
-
-    // Initialize
-    showPage(1);
-  </script>
+nextBtn.addEventListener('click', () => {
+  if (validateCurrentPage()) {
+    currentPage++;
+    showPage(currentPage);
+  }
+});
+prevBtn.addEventListener('click', () => {
+  currentPage--;
+  showPage(currentPage);
+});
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const params = new URLSearchParams(formData);
+  submitBtn.textContent = 'Submitting...';
+  submitBtn.disabled = true;
+  fetch(scriptURL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.result === 'success') {
+      form.style.display = 'none';
+      thankYou.classList.remove('hidden');
+    } else {
+      alert('Submission failed: ' + (data.error || 'Unknown error'));
+      submitBtn.textContent = 'Submit Survey';
+      submitBtn.disabled = false;
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert('There was a problem submitting your response. Please try again.');
+    submitBtn.textContent = 'Submit Survey';
+    submitBtn.disabled = false;
+  });
+});
+showPage(1);
+</script>
 </body>
 </html>
+
 
 
