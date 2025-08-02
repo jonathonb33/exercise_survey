@@ -357,16 +357,21 @@
     });
 
     // Handle "Another reason" checkbox for non-gym members
-    const otherReasonCheckbox = document.getElementById('otherReason');
-    const otherReasonText = document.getElementById('otherReasonText');
-    
-    if (otherReasonCheckbox) {
-      otherReasonCheckbox.addEventListener('change', () => {
-        otherReasonText.style.display = otherReasonCheckbox.checked ? 'block' : 'none';
-        if (!otherReasonCheckbox.checked) {
-          document.getElementById('reasonsNoGymOther').value = '';
-        }
-      });
+    function setupOtherReasonHandler() {
+      const otherReasonCheckbox = document.getElementById('otherReason');
+      const otherReasonText = document.getElementById('otherReasonText');
+      
+      if (otherReasonCheckbox && otherReasonText) {
+        otherReasonCheckbox.addEventListener('change', () => {
+          otherReasonText.style.display = otherReasonCheckbox.checked ? 'block' : 'none';
+          if (!otherReasonCheckbox.checked) {
+            const otherTextArea = document.getElementById('reasonsNoGymOther');
+            if (otherTextArea) {
+              otherTextArea.value = '';
+            }
+          }
+        });
+      }
     }
 
     // Handle "Another reason" checkbox for non-gym members
@@ -394,6 +399,8 @@
           document.getElementById('gymMemberPage').classList.add('active');
         } else {
           document.getElementById('nonGymPage').classList.add('active');
+          // Set up the "other reason" handler when the non-gym page is shown
+          setTimeout(setupOtherReasonHandler, 0);
         }
       } else if (pageNum === 3) {
         if (isGymMember) {
@@ -481,5 +488,3 @@
   </script>
 </body>
 </html>
-
-
