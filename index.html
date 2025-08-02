@@ -153,7 +153,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Help Us Make Exercise More Enjoyable!</h2>
+    <h2>Help Us Make Exercising at the Gym More Enjoyable and Rewarding!</h2>
     
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill"></div>
@@ -165,7 +165,25 @@
         <div class="page-counter">Page 1 of 6</div>
         
         <label for="age">Age:</label>
-        <input type="number" name="age" id="age" required />
+        <select name="age" id="age" required>
+          <option value="">--Select--</option>
+          <option value="Under 18">Under 18</option>
+          <option value="18-24">18-24</option>
+          <option value="25-34">25-34</option>
+          <option value="35-44">35-44</option>
+          <option value="45-54">45-54</option>
+          <option value="55-64">55-64</option>
+          <option value="65+">65+</option>
+        </select>
+
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender" required>
+          <option value="">--Select--</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Non-binary">Non-binary</option>
+          <option value="Prefer not to answer">Prefer not to answer</option>
+        </select>
 
         <label for="gymMember">Are you a gym member?</label>
         <select name="gymMember" id="gymMember" required>
@@ -205,32 +223,59 @@
         </select>
 
         <label>What are the biggest reasons you don't have a gym membership? (Select all that apply)</label>
+
         <div style="margin: 0.5em 0;">
+
           <input type="checkbox" name="reasonsNoGym" id="lackTime" value="Lack of time">
+
           <label for="lackTime" style="display: inline; margin-left: 0.5em; font-weight: normal;">Lack of time</label>
+
         </div>
+
         <div style="margin: 0.5em 0;">
+
           <input type="checkbox" name="reasonsNoGym" id="intimidated" value="I feel intimidated or worry about being judged">
+
           <label for="intimidated" style="display: inline; margin-left: 0.5em; font-weight: normal;">I feel intimidated or worry about being judged</label>
+
         </div>
+
         <div style="margin: 0.5em 0;">
+
           <input type="checkbox" name="reasonsNoGym" id="notFun" value="Exercising at the gym is not fun or rewarding">
+
           <label for="notFun" style="display: inline; margin-left: 0.5em; font-weight: normal;">Exercising at the gym is not fun or rewarding</label>
+
         </div>
+
         <div style="margin: 0.5em 0;">
+
           <input type="checkbox" name="reasonsNoGym" id="dontKnow" value="I don't know what to do">
+
           <label for="dontKnow" style="display: inline; margin-left: 0.5em; font-weight: normal;">I don't know what to do</label>
+
         </div>
+
         <div style="margin: 0.5em 0;">
+
           <input type="checkbox" name="reasonsNoGym" id="costs" value="Costs of memberships">
+
           <label for="costs" style="display: inline; margin-left: 0.5em; font-weight: normal;">Costs of memberships</label>
+
         </div>
+
         <div style="margin: 0.5em 0;">
+
           <input type="checkbox" name="reasonsNoGym" id="otherReason" value="Another reason">
+
           <label for="otherReason" style="display: inline; margin-left: 0.5em; font-weight: normal;">Another reason</label>
+
         </div>
+
         <div id="otherReasonText" style="margin-top: 0.5em; display: none;">
+
           <textarea name="reasonsNoGymOther" id="reasonsNoGymOther" rows="2" placeholder="Please specify..."></textarea>
+
         </div>
       </div>
 
@@ -310,6 +355,19 @@
     gymSelect.addEventListener('change', () => {
       isGymMember = gymSelect.value === 'Yes';
     });
+
+    // Handle "Another reason" checkbox for non-gym members
+    const otherReasonCheckbox = document.getElementById('otherReason');
+    const otherReasonText = document.getElementById('otherReasonText');
+    
+    if (otherReasonCheckbox) {
+      otherReasonCheckbox.addEventListener('change', () => {
+        otherReasonText.style.display = otherReasonCheckbox.checked ? 'block' : 'none';
+        if (!otherReasonCheckbox.checked) {
+          document.getElementById('reasonsNoGymOther').value = '';
+        }
+      });
+    }
 
     // Handle "Another reason" checkbox for non-gym members
     const otherReasonCheckbox = document.getElementById('otherReason');
@@ -423,11 +481,5 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
 
 
