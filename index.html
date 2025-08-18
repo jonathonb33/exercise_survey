@@ -59,6 +59,7 @@
       font-weight: 600;
     }
     input[type="number"],
+    input[type="text"],
     select,
     textarea {
       width: 100%;
@@ -115,6 +116,44 @@
       font-weight: bold;
       color: #28a745;
     }
+    
+    /* Ranking Question Styles */
+    .ranking-question {
+      margin: 20px 0;
+    }
+    
+    .ranking-question label {
+      display: block;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    
+    .ranking-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .ranking-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    
+    .ranking-item select {
+      width: 80px;
+      padding: 5px;
+    }
+    
+    .option-text {
+      flex: 1;
+      font-size: 16px;
+    }
+    
     @media (max-width: 600px) {
       .container {
         padding: 1em;
@@ -130,7 +169,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Help Us Make Exercising at Gyms More Enjoyable and Rewarding!</h2>
+    <h2>Help Us Make Exercise and Gyms More Fun and Rewarding!</h2>
     
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill"></div>
@@ -145,12 +184,11 @@
         <select name="age" id="age" required>
           <option value="">--Select--</option>
           <option value="Under 18">Under 18</option>
-          <option value="18-24">18-24</option>
-          <option value="25-34">25-34</option>
-          <option value="35-44">35-44</option>
-          <option value="45-54">45-54</option>
-          <option value="55-64">55-64</option>
-          <option value="65+">65+</option>
+          <option value="18-29">18-29</option>
+          <option value="30-39">30-39</option>
+          <option value="40-49">40-49</option>
+          <option value="50-59">50-59</option>
+          <option value="60+">60+</option>
         </select>
 
         <label for="gender">Gender:</label>
@@ -187,7 +225,7 @@
         <label for="likeGym">What do you like about your gym?</label>
         <textarea name="likeGym" id="likeGym" rows="3"></textarea>
 
-        <label for="wishGym">What do you wish your gym did differently that would make you want to go more?</label>
+        <label for="wishGym">What would make you want to go to the gym more?</label>
         <textarea name="wishGym" id="wishGym" rows="4"></textarea>
       </div>
 
@@ -204,10 +242,6 @@
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="prefer" value="In my free time I prefer to do other activities">
           <label for="prefer" style="display: inline; margin-left: 0.5em; font-weight: normal;">I prefer to do other activities</label>
-        </div>
-        <div style="margin: 0.5em 0;">
-          <input type="checkbox" name="reasonsNoGym" id="tired" value="I am too tired">
-          <label for="tired" style="display: inline; margin-left: 0.5em; font-weight: normal;">I am too tired</label>
         </div>
         <div style="margin: 0.5em 0;">
           <input type="checkbox" name="reasonsNoGym" id="notFun" value="Exercising at a gym isn't fun">
@@ -233,7 +267,7 @@
           <textarea name="reasonsNoGymOther" id="reasonsNoGymOther" rows="2" placeholder="Please specify the other reason(s)..."></textarea>
         </div>
 
-        <label for="wishGymNo">What do you wish gyms did differently that might make you want to join?</label>
+        <label for="wishGymNo">What could gyms do differently that might make you want to join one?</label>
         <textarea name="wishGymNo" id="wishGymNo" rows="4"></textarea>
 
         <label for="openToGym">Would you be open to joining a gym if they addressed your the reasons above?</label>
@@ -247,11 +281,13 @@
       <!-- Page 3 -->
       <div class="page" data-page="3">
         <div class="page-counter">Page 3 of 5</div>
+        
         <label for="exerciseSocial">Do you prefer to exercise:</label>
         <select name="exerciseSocial" id="exerciseSocial" required>
           <option value="">--Select--</option>
-          <option value="In a group">In a group</option>
-          <option value="With a couple people">With a couple people</option>
+          <option value="In a large group (greater than 8 people)">In a large group (greater than 8 people)</option>
+          <option value="In a small group (3-8 people)">In a small group (3-8 people)</option>
+          <option value="With a partner">With a partner</option>
           <option value="On your own">On your own</option>
         </select>
 
@@ -280,13 +316,16 @@
         
         <label for="lifeImprovements">What are a couple aspects of your life you would like to improve? </label>
         <textarea name="lifeImprovements" id="lifeImprovements" rows="3" placeholder="e.g., mental health, energy, relationships, self-esteem"></textarea>
-      </div> <!-- ✅ close Page 4 -->
+      </div>
 
       <!-- Page 5 -->
       <div class="page" data-page="5">
         <div class="page-counter">Page 5 of 5</div>
-        <label for="anythingElseText">Is there anything else you'd like to share to help us understand how to make exercise more enjoyable and rewarding?</label>
+        <label for="anythingElseText">Is there anything else you'd like to share to help us understand how to make exercise more enjoyable and rewarding? (Optional)</label>
         <textarea name="anythingElseText" id="anythingElseText" rows="4"></textarea>
+        
+        <label for="contactInfo">Would you be willing to share your email or phone number for future surveys to help us improve exercise experiences? (Optional)</label>
+        <input type="text" name="contactInfo" id="contactInfo">
       </div>
 
       <!-- Buttons -->
@@ -360,10 +399,12 @@ nextBtn.addEventListener('click', () => {
     showPage(currentPage);
   }
 });
+
 prevBtn.addEventListener('click', () => {
   currentPage--;
   showPage(currentPage);
 });
+
 form.addEventListener('submit', e => {
   e.preventDefault();
   const formData = new FormData(form);
@@ -393,11 +434,11 @@ form.addEventListener('submit', e => {
     submitBtn.disabled = false;
   });
 });
+
 showPage(1);
 </script>
 </body>
 </html>
-
 
 
 
