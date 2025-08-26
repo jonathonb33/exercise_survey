@@ -58,6 +58,17 @@
       margin: 1em 0 0.5em;
       font-weight: 600;
     }
+    
+    .indented-question {
+      margin-left: 1.5em;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .indented-question + input,
+    .indented-question + textarea {
+      margin-left: 1.5em;
+    }
     input[type="number"],
     input[type="text"],
     select,
@@ -152,6 +163,22 @@
     .option-text {
       flex: 1;
       font-size: 16px;
+    }
+
+    /* New styles for improvement sections */
+    .improvement-section {
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 1em;
+      margin: 1em 0;
+    }
+
+    .improvement-section h4 {
+      margin: 0 0 0.5em 0;
+      color: #495057;
+      font-size: 1em;
+      font-weight: 600;
     }
     
     @media (max-width: 600px) {
@@ -298,21 +325,49 @@
           <option value="Have a routine given to me">Have a routine given to me</option>
         </select>
 
-        <p style="font-weight: 600; margin: 1em 0 0.5em;">What are your two favorite types of exercise, and what do you like about them?</p>
-        <label for="exercise1">Exercise #1 and reasons you like it?:</label>
-        <textarea name="exercise1" id="exercise1" rows="3" placeholder="e.g., Biking - I love exploring different areas and being outside"></textarea>
-        <label for="exercise2">Exercise #2 and reasons you like it?:</label>
-        <textarea name="exercise2" id="exercise2" rows="3" placeholder="e.g., Dance class - I like exercising with people and learning new dance routines"></textarea>
+        <p style="font-weight: 600; margin: 1em 0 0.5em;">Tell us about your two favorite types of exercise:</p>
+        
+        <label for="exercise1Name">Exercise #1:</label>
+        <input type="text" name="exercise1Name" id="exercise1Name" placeholder="e.g., Biking">
+        
+        <label for="exercise1Reasons" class="indented-question">Why do you like this exercise?</label>
+        <textarea name="exercise1Reasons" id="exercise1Reasons" rows="2" placeholder="I love exploring different areas and being outside"></textarea>
+        
+        <label for="exercise1Improvement" class="indented-question">What would make you like this exercise even more?</label>
+        <textarea name="exercise1Improvement" id="exercise1Improvement" rows="2" placeholder="Better bike paths, organized group rides, tracking my progress"></textarea>
+
+        <label for="exercise2Name">Exercise #2:</label>
+        <input type="text" name="exercise2Name" id="exercise2Name" placeholder="e.g., Dance class">
+        
+        <label for="exercise2Reasons" class="indented-question">Why do you like this exercise?</label>
+        <textarea name="exercise2Reasons" id="exercise2Reasons" rows="2" placeholder="I like exercising with people and learning new dance routines"></textarea>
+        
+        <label for="exercise2Improvement" class="indented-question">What would make you like this exercise even more?</label>
+        <textarea name="exercise2Improvement" id="exercise2Improvement" rows="2" placeholder="More variety in music, smaller class sizes, beginner-friendly options"></textarea>
       </div>
 
       <!-- Page 4 -->
       <div class="page" data-page="4">
         <div class="page-counter">Page 4 of 5</div>
-        <p style="font-weight: 600; margin: 1em 0 0.5em;">What are a couple of your favorite activities or hobbies? What are a few reasons you like them?</p>
-        <label for="hobby1">Activity #1 and reasons you like it:</label>
-        <textarea name="hobby1" id="hobby1" rows="3"></textarea>
-        <label for="hobby2">Activity #2 and reasons you like it:</label>
-        <textarea name="hobby2" id="hobby2" rows="3"></textarea>
+        <p style="font-weight: 600; margin: 1em 0 0.5em;">Tell us about a couple of your favorite activities or hobbies:</p>
+        
+        <label for="hobby1Name">Activity/Hobby #1:</label>
+        <input type="text" name="hobby1Name" id="hobby1Name" placeholder="e.g., Reading">
+        
+        <label for="hobby1Reasons" class="indented-question">Why do you like reading?</label>
+        <textarea name="hobby1Reasons" id="hobby1Reasons" rows="2" placeholder="It helps me relax and escape into different worlds"></textarea>
+        
+        <label for="hobby1Improvement" class="indented-question">What would make you like reading even more?</label>
+        <textarea name="hobby1Improvement" id="hobby1Improvement" rows="2" placeholder="More time for it, a cozy reading nook, joining a book club"></textarea>
+
+        <label for="hobby2Name">Activity/Hobby #2:</label>
+        <input type="text" name="hobby2Name" id="hobby2Name" placeholder="e.g., Cooking">
+        
+        <label for="hobby2Reasons" class="indented-question">Why do you like cooking?</label>
+        <textarea name="hobby2Reasons" id="hobby2Reasons" rows="2" placeholder="I love being creative and sharing meals with family and friends"></textarea>
+        
+        <label for="hobby2Improvement" class="indented-question">What would make you like cooking even more?</label>
+        <textarea name="hobby2Improvement" id="hobby2Improvement" rows="2" placeholder="Better kitchen equipment, taking cooking classes, trying cuisines from different cultures"></textarea>
         
         <label for="lifeImprovements">What are a couple aspects of your life you would like to improve? </label>
         <textarea name="lifeImprovements" id="lifeImprovements" rows="3" placeholder="e.g., mental health, energy, relationships, self-esteem"></textarea>
@@ -439,9 +494,6 @@ showPage(1);
 </script>
 </body>
 </html>
-
-
-
 
 
 
